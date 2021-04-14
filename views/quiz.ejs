@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jQuery.js"></script>
+</head>
+
+<body>
+    <div id="quizhead">
+        <div>
+            <p>Question <span id="quizquescount">1</span>/3</p>
+            <div id="quizprogress">
+                <div id="quizprogressupdate"></div>
+            </div>
+        </div>
+        <div>
+            <p>Score</p>
+            <p id="quizscore" style="text-align: center;">0</p>
+        </div>
+    </div>
+
+    <div id="quizquestion">
+        <h3 id="question">Question goes here</h3>
+        <div class="option">
+            <div><p style="background-color: blue; color: white; padding: 10px; margin: 16px 0px;font-size: 1.2rem;">A&nbsp;</p></div>
+            <p id="option1" style="background-color: white; width: 100%; height: 40px;">Option 1</p>
+        </div>
+        <div class="option">
+            <div><p style="background-color: blue; color: white; padding: 10px; margin: 16px 0px;font-size: 1.2rem;">B&nbsp;</p></div>
+            <p id="option2" style="background-color: white; width: 100%; height: 40px;">Option 2</p>
+        </div>
+        <div class="option">
+            <div><p style="background-color: blue; color: white; padding: 10px; margin: 16px 0px; font-size: 1.2rem;">C&nbsp;</p></div>
+            <p id="option3" style="background-color: white; width: 100%; height: 40px;">Option 3</p>
+        </div>
+        <div class="option">
+            <div><p style="background-color: blue; color: white; padding: 10px; margin: 16px 0px; font-size: 1.2rem;">D&nbsp;</p></div>
+            <p id="option4" style="background-color: white; width: 100%; height: 40px;">Option 4</p>
+        </div>
+    </div>
+    <form id = "target" action="/result" method="POST"></form>
+    <script>
+        const Data = <%- JSON.stringify(data) %>; 
+        console.log(Data);
+        const quizquescount = document.getElementById("quizquescount");
+        const quizprogressupdate = document.getElementById("quizprogressupdate");
+        const quizscore = document.getElementById("quizscore");
+        const question = document.getElementById("question");
+        const option1 = document.getElementById("option1");
+        const option2 = document.getElementById("option2");
+        const option3 = document.getElementById("option3");
+        const option4 = document.getElementById("option4");
+        const option = document.querySelectorAll(".option");
+        let questionCounter = 0;
+        let currScore = 0
+
+        function updater(){
+            if(questionCounter === 3){
+                var input = $("<input>").attr("type", "hidden").attr("name", "score").val(currScore);
+                $("#target").append(input).submit();
+            }else{
+            quizquescount.innerText = questionCounter+1;
+            quizprogressupdate.style.width = (questionCounter+1)*33.33+"%";
+            quizscore.innerText = currScore;
+            question.innerText = Data[questionCounter].question;
+            option1.innerText = Data[questionCounter].option1;
+            option2.innerText = Data[questionCounter].option2;
+            option3.innerText = Data[questionCounter].option3;
+            option4.innerText = Data[questionCounter].option4;
+            option1.style.background = "white";
+            option2.style.background = "white";
+            option3.style.background = "white";
+            option4.style.background = "white";
+            }
+        }
+
+        updater();
+
+        for(let i = 0 ; i<option.length;i++){
+            option[i].addEventListener("click", function() {
+                const currQuesAns = Data[questionCounter].ans;
+                if(i === parseInt(currQuesAns)){
+                    const childs = option[i].childNodes;
+                    childs[3].style.background = "#008000";
+                    questionCounter++;
+                    currScore+=10;
+                    setTimeout(() => { updater(); }, 500);
+                }else{
+                    const childs = option[i].childNodes;
+                    childs[3].style.background = "#FF0000";
+                    questionCounter++;
+                    setTimeout(() => { updater(); }, 500);
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

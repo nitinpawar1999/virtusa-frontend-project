@@ -1,0 +1,71 @@
+*{
+    background-color: rgb(200, 158, 240);
+}
+h1{
+    margin-top: 10%;
+    text-align: center;
+    font-size: 4rem;
+    color: white;
+}
+
+#btn_div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button{
+    width: 300px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10%;
+    font-size: 2rem;
+    background-color: aqua;
+}
+
+button:hover {
+    transform: scale(1.2);
+}
+
+#quizhead{
+    display: flex;
+    margin-top: 20vh;
+    justify-content: space-evenly;
+}
+
+#quizprogress{
+    height: 30px;
+    border: none;
+}
+
+#quizprogressupdate{
+    width: 33%;
+    height: 30px;
+    background-color: blue;
+}
+
+#quizquestion{
+    width: 70%;
+    height: auto;
+    box-shadow: 5px 10px 18px #888888;
+    margin: 30px auto;
+}
+
+#question{
+    margin: 30px;
+}
+
+#resultDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option{
+    display: flex;
+    margin: 5px;
+}
+
+.option:hover{
+    transform: scale(1.01);
+}

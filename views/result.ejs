@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id ="resultDiv">
+    <h1><%= score %> </h1>
+    <form action="/savescore" method="POST" style="display: flex; flex-direction: column; align-items: center;">
+    <input type="text" name = "username" placeholder="username" style="width: 200px;height: 40px;">
+    <input type="hidden" name="score" value="<%= score %>">
+    <br>
+    <button>Save</button>
+    </form>
+    <form action="/play" method="GET">
+    <button id="playAgain">Play Again</button>
+    </form>
+    
+    <form action="/" method="GET">
+        <button>Go Home</button>
+    </form>
+    </div>
+
+    <script>
+
+    </script>
+</body>
+</html>
